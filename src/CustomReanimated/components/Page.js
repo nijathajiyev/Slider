@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -8,64 +8,48 @@ import Animated, {
 
 const {height, width} = Dimensions.get('window');
 
-const SIZE = width * 0.7;
+const Page = ({index, title, translateX}) => {
+  console.log(index, 'index');
+  const inputRange = [1, 1, 1];
 
-const Page = ({index, title, translateY}) => {
-  // console.log(index, 'index');
-  const inputRange = [
-    (index - 1) * height,
-    index * height,
-    (index + 1) * height,
-  ];
+  const rTextStyle = useAnimatedStyle(() => {
+    const translateY = interpolate(
+      translateX.value,
+      inputRange,
+      [1, 1, 1],
+      Extrapolation.CLAMP,
+    );
 
-  // const rTextStyle = useAnimatedStyle(() => {
-  //   const translateYy = interpolate(
-  //     translateY.value,
-  //     inputRange,
-  //     [height / 2, 0, -height / 2],
-  //     Extrapolation.CLAMP,
-  //   );
+    const opacity = interpolate(translateX.value, inputRange, [1, 0, 1]);
 
-  //   const opacity = interpolate(translateY.value, inputRange, [-2, 1, -2]);
-
-  //   return {
-  //     opacity,
-  //     transform: [
-  //       {
-  //         translateY: translateYy,
-  //       },
-  //     ],
-  //   };
-  // });
+    return {
+      opacity,
+      transform: [
+        {
+          translateY,
+        },
+      ],
+    };
+  });
 
   return (
-    <View
-      style={[
-        // styles.pageContainer,
-        {backgroundColor: `rgba(0,0,256,0.${index + 2})`},
-      ]}>
-      <Animated.View>
+    <SafeAreaView>
+      <Animated.View style={[styles.pageContainer, rTextStyle]}>
         <Text style={styles.text}>{title}</Text>
       </Animated.View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   pageContainer: {
-    height,
-    width,
+    height: 80,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  square: {
-    height: SIZE,
-    width: SIZE,
-    backgroundColor: 'rgba(0,0,256,0.4)',
-  },
   text: {
-    fontSize: 60,
-    color: 'white',
+    fontSize: 30,
+    color: 'black',
     textTransform: 'uppercase',
     fontWeight: '700',
   },

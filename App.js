@@ -21,31 +21,32 @@ import ReanimatedInterpolate from './src/Reanimated';
 import CustomReanimatedInterpolate from './src/CustomReanimated';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Test from './src/test';
 
 const App = () => {
-  // const data2 = [
-  //   {
-  //     image: require('./src/assets/image/image-product-1-landscape.jpg'),
-  //   },
-  //   {
-  //     image: require('./src/assets/image/image-product-2-landscape.jpg'),
-  //   },
-  //   {
-  //     image: require('./src/assets/image/image-product-3-landscape.jpg'),
-  //   },
-  //   {
-  //     image: require('./src/assets/image/image-product-4-landscape.jpg'),
-  //   },
-  // ];
+  const data2 = [
+    {
+      image: require('./src/assets/image/image-product-1-landscape.jpg'),
+    },
+    {
+      image: require('./src/assets/image/image-product-2-landscape.jpg'),
+    },
+    // {
+    //   image: require('./src/assets/image/image-product-3-landscape.jpg'),
+    // },
+    // {
+    //   image: require('./src/assets/image/image-product-4-landscape.jpg'),
+    // },
+  ];
 
   return (
     <>
-      {/* <ReanimatedInterpolate /> */}
-      <GestureHandlerRootView style={{flex: 1}}>
-        <BottomSheetModalProvider>
-          <CustomReanimatedInterpolate />
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.carouselContainer}>
+          <Test data={data2} />
+          {/* <CustomImageCarousal data={data2} /> */}
+        </View>
+      </SafeAreaView>
     </>
   );
 };

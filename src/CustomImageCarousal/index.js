@@ -12,8 +12,8 @@ import axios from 'axios';
 const CustomImageCarousal = ({data}) => {
   const scrollViewRef = useAnimatedRef(null);
   const interval = useRef();
-   const [slide, setSlide] = useState([]);
-//   const [isAutoPlay, setIsAutoPlay] = useState(autoPlay);
+  const [slide, setSlide] = useState([]);
+  //   const [isAutoPlay, setIsAutoPlay] = useState(autoPlay);
   const [newData, setNewData] = useState([
     {key: 'spacer-left'},
     ...slide,
@@ -25,27 +25,27 @@ const CustomImageCarousal = ({data}) => {
   const x = useSharedValue(0);
   const offSet = useSharedValue(0);
 
-    useEffect(() => {
-      slider();
-    }, []);
+  useEffect(() => {
+    slider();
+  }, []);
 
-    const slider = () => {
-        axios({
-          method: 'get',
-          url: 'https://picsum.photos/v2/list',
-        }).then(response => {
-          console.log(response.data, 'picsum');
-          const images = response.data.map(item=>{
-            return {
-              image: item.download_url,
-              width: item.width,
-              height: item.height,
-            };
-          });
-        //   console.log(images);
-          setSlide(images);
-        });
-    };
+  const slider = () => {
+    axios({
+      method: 'get',
+      url: 'https://picsum.photos/v2/list',
+    }).then(response => {
+      console.log(response.data, 'picsum');
+      const images = response.data.map(item => {
+        return {
+          image: item.download_url,
+          width: item.width,
+          height: item.height,
+        };
+      });
+      //   console.log(images);
+      setSlide(images);
+    });
+  };
 
   // Update newData if data change
   useEffect(() => {
@@ -61,24 +61,24 @@ const CustomImageCarousal = ({data}) => {
     },
   });
 
-//   useEffect(() => {
-//     if (isAutoPlay === true) {
-//       let _offSet = offSet.value;
-//       interval.current = setInterval(() => {
-//         if (_offSet >= Math.floor(SIZE * (data.length - 1) - 10)) {
-//           _offSet = 0;
-//         } else {
-//           _offSet = Math.floor(_offSet + SIZE);
-//         }
-//         scrollViewRef.current.scrollTo({x: _offSet, y: 0});
-//       }, 2000);
-//     } else {
-//       clearInterval(interval.current);
-//     }
-//     return () => {
-//       clearInterval(interval.current);
-//     };
-//   }, [SIZE, SPACER, isAutoPlay, data.length, offSet.value, scrollViewRef]);
+  //   useEffect(() => {
+  //     if (isAutoPlay === true) {
+  //       let _offSet = offSet.value;
+  //       interval.current = setInterval(() => {
+  //         if (_offSet >= Math.floor(SIZE * (data.length - 1) - 10)) {
+  //           _offSet = 0;
+  //         } else {
+  //           _offSet = Math.floor(_offSet + SIZE);
+  //         }
+  //         scrollViewRef.current.scrollTo({x: _offSet, y: 0});
+  //       }, 2000);
+  //     } else {
+  //       clearInterval(interval.current);
+  //     }
+  //     return () => {
+  //       clearInterval(interval.current);
+  //     };
+  //   }, [SIZE, SPACER, isAutoPlay, data.length, offSet.value, scrollViewRef]);
 
   return (
     <View>

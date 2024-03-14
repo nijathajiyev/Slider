@@ -8,7 +8,7 @@ import Page from './components/Page';
 
 const Words = ['what`s', 'up', 'mobile', 'devs'];
 
-const ReanimatedInterpolate = () => {
+const ReanimatedCustomInterpolate = () => {
   const translateX = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler(event => {
     translateX.value = event.contentOffset.x;
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReanimatedInterpolate;
+export default ReanimatedCustomInterpolate;
